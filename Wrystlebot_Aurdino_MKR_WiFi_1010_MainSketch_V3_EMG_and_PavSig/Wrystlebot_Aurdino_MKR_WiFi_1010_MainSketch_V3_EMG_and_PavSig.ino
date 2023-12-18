@@ -65,6 +65,7 @@ float pred2 = 0;
 float surprise2 = 0;
 
 float target = 0;
+float targetDelta = 0;
 int colourRedBoost = 0;
 int colourGreenBoost = 0;
 int colourBlueBoost = 0;
@@ -129,6 +130,7 @@ void setup() {
 
   // For EMG
   pinMode(A5, INPUT_PULLUP);
+  //pinMode(A5, INPUT);
 
   // For LED
   pinMode(LED_BUILTIN, OUTPUT);
@@ -159,24 +161,33 @@ void loop() {
   colourGreenBoost = 0;
   colourBlueBoost = 0;
 
-  // EMG Control
-
+  // EMG Control Updates
   if (EMG > 100) {
-    target += int(EMG / 4);
+    targetDelta = int(EMG / 4);
   }
   else {
-    target -= 200;
+    // "Default closed" operation
+    targetDelta = -200;  
+    // To align with target of load prediction,
+    // Do not close to the point of high load
+    if (target + targetDelta < -100) {
+    targetDelta = 0;
+    }
   }
 
   // Read button contorls pins & move servo
   // This overrides the EMG as needed
   if (!digitalRead(7)) {
-    target += 300;
+    targetDelta = -300;
   }
   if (!digitalRead(8) ) {
-    target -= 300;
+    targetDelta = 300;
   }
 
+  // Update target position of gripper
+  target += targetDelta;
+
+  // Boundary check
   if (target > 1000) {
     target = 1000;
   }
