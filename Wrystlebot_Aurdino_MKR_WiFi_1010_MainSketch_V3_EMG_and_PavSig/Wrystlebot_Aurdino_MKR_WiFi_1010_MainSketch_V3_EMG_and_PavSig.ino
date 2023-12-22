@@ -14,9 +14,24 @@
 * limitations under the License.
 *******************************************************************************/
 
-// Implements on Wrystlebot: Continual learning via TD-Learning, General Value Functions, Pavlovian signalling and control
-// Hardware: Arduino MKR WiFi 1010, IMU shield, RGB shield, Dynamixel shield, prototyping shield x 1
-// Other sensors and actuators connected: Dynamixel XL-330-M288-T (to Dynamixel shield), 2-button interface (to input pins D7&D8) 
+// Implements on Wrystlebot: 
+// - Continual learning via TD-Learning, 
+// - General Value Functions, 
+// - Pavlovian signalling and control, 
+// - Myoelectric control
+// Arduino Hardware: 
+// - Arduino MKR WiFi 1010, 
+// - MKR IMU shield, 
+// - MKR RGB shield, 
+// - MKR Dynamixel shield, 
+// - MKR prototyping shield, 
+// - MyoWare 2.0 Muscle Sensor, 
+// - MyoWare 2.0 Link Shield (connecting to pin A5)
+// Other sensors and actuators connected: 
+// - Dynamixel XL-330-M288-T (to Dynamixel shield), 
+// - 2-button interface (to input pins D7&D8),
+// - External LED (from output pin D4, via transistor power gating)
+// - DC vibration motor (from output pin D4, via transistor power gating) 
 
 #include <ArduinoGraphics.h>
 #include <Arduino_MKRRGB.h>
